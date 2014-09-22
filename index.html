@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>CALPERBOLE - An astonishingly important leap forwards.</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="css/animate.min.css" rel="stylesheet" type="text/css">
+	<link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css">
+	<link href="css/main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="container">
+<div class="row">
+  	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  		<section id="allTasks">
+  		<!-- <button id="add-friend">Add Friend</button> -->
+			<h1>CAL<span>PERBOLE</span></h1>
+			<h2>Making your life exaggeratedly more interesting.</h2>	
+			<ul id="taskList" class="list-group">
+			</ul>
+		<div class="text-center">
+		<div class="btn-group">
+		  <button type="button" class="btn btn-primary btn-lg" id="addBtn" data-toggle="modal">Add Something New</button>
+		</div>
+		</div>
+		</section>
+	</div>
+</div>
+
+<form id="addEvent">
+<div id="addForm" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Add Your Amazing Event</h4>
+      </div>
+      <div class="modal-body">
+      <div class="row">
+ 		<div class="col-md-12">
+		  <div class="form-group">
+			<label for="eventTitle">Event Title</label>
+			<input type="email" class="form-control" id="eventTitle" placeholder="Enter a title">
+		  </div>
+	  	</div>
+	  </div>
+      <div class="row">
+ 		<div class="col-md-6">
+            <div class="form-group">
+            	<label for="startDate">Start Date</label>
+                <div class='input-group date' id='datetimeStart'>
+                    <input type='text' class="form-control" id="startDate" placeholder="Start Date" />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+            	<label for="endDate">End Date</label>
+                <div class='input-group date' id='datetimeStop'>
+                    <input type='text' class="form-control" id="endDate" placeholder="End Date" />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="saveBtn">Save Event</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+	<script type="text/javascript" src="libs/jquery.min.js"></script>
+	<script type="text/javascript" src="libs/underscore-min.js"></script>
+	<script type="text/javascript" src="libs/backbone.js"></script>
+	<script type="text/javascript" src="libs/moment.min.js"></script>
+	<script type="text/javascript" src="libs/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="libs/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="libs/hyperbole.js"></script>
+	
+
+</body>
+</html>

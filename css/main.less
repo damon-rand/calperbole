@@ -1,0 +1,179 @@
+/* Mixins */
+
+.bordered(@w, @color) {
+	border: @w  @color solid;
+}
+
+.rounded-corners(@tl, @tr, @bl, @br) {
+  -webkit-border-radius: @tl @tr @bl @br;
+     -moz-border-radius: @tl @tr @bl @br;
+          border-radius: @tl @tr @bl @br;
+}
+
+
+/* Colours */
+
+@black:         #000000;
+@white:         #ffffff;
+@past:			rgba(186, 5, 5, 1.0);
+@today: 		rgba(42, 145, 61, 1.0);
+@future: 		rgba(221, 107, 5, 1.0);
+@txt:			rgba(255, 255, 255, 0.9);
+@reverseTxt:	rgba(37, 37, 37, 0.8);
+@bg:			rgba(27, 27, 27, 0.9);
+@highlight:		rgba(197, 197, 197, 0.9);
+
+/* Fonts */
+
+@font-face {
+  font-family: 'Museo Sans 500';
+  src: url('../fonts/MuseoSans-500.eot'); /* IE9 Compat Modes */
+  src: url('../fonts/MuseoSans-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/MuseoSans-500.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/MuseoSans-500.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/MuseoSans-500.svg#def45dfa0767cb06d134930a9f004794') format('svg'); /* Legacy iOS */
+       
+  font-style:   normal;
+  font-weight:  400;
+}
+
+@font-face {
+  font-family: 'Museo Slab 500';
+  src: url('../fonts/MuseoSlab-500.eot'); /* IE9 Compat Modes */
+  src: url('../fonts/MuseoSlab-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/MuseoSlab-500.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/MuseoSlab-500.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/MuseoSlab-500.svg#e2b4a901dc21adc8c4deecbedb302532') format('svg'); /* Legacy iOS */
+       
+  font-style:   normal;
+  font-weight:  400;
+}
+
+
+.slabFont {
+	font-family: 'Museo Slab 500';
+}
+
+.sansFont {
+	font-family: 'Museo Sans 500';
+}
+
+
+/* Custom */
+
+.italic {
+  font-style: italic;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+/* DOM */
+
+
+body
+{
+	background: url(../images/pattern_tile.png) repeat, @bg;
+	margin-top: 50px;
+	.sansFont;
+}
+
+h1, h2 {
+	color: @txt;
+	.slabFont;
+	text-align: center;
+	text-shadow: 0px 2px 0px rgba(0, 0, 0, 1);
+	span {
+		color: darken(@txt, 20%);
+	}
+}
+
+h1 {
+	font-size: 4.8em;
+	margin-bottom: 0;
+}
+
+ul {
+	margin-top: 20px;
+}
+li.past {
+	opacity: 1.0;
+	color: @reverseTxt;
+	background: @past;
+	span.badge {
+		color: @reverseTxt;
+		background: darken(@past, 5%);
+	}
+}
+
+li.today {
+	color: @txt;
+	background: @today;
+	span.badge {
+		background: darken(@today, 5%);
+	}
+}
+
+li.future {
+	color: @txt;
+	background: @future;
+	span.badge {
+		background: darken(@future, 5%);
+	}
+}
+
+li.empty {
+	h4 {
+		text-align: center;
+	}
+}
+li:hover {
+	background: @highlight;
+	span.badge {
+		background: darken(@highlight, 20%);
+	}
+}
+
+li:last-child {
+	-webkit-box-shadow: 0 2px 0 0 rgba(0,0,0,.7);
+	box-shadow: 0 2px 0 0 rgba(0,0,0,.7);
+}
+
+span.removeAppt {
+	font-size: 1.2em;
+	margin-left: 10px;
+}
+
+section {
+	margin-bottom: 50px;
+	
+}
+
+.btn-primary {
+	background: rgba(42, 145, 61, 1.0);
+	border-color: @white;
+	&:hover {
+		background: rgba(42, 145, 61, 0.8);
+		border-color: @white;
+	}
+	&:active {
+		background: rgba(42, 145, 61, 0.8);
+		border-color: @white;
+	}
+}
+
+#addForm {
+	background: rgba(37, 37, 37, 0.9);
+	.modal-dialog {
+		margin: 100px auto;
+		
+		.modal-content {
+			background: rgba(255, 255, 255, 0.9);
+		}
+	}
+}
