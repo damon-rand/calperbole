@@ -103,6 +103,9 @@ span.removeAppt {
   font-size: 1.2em;
   margin-left: 10px;
 }
+span.removeAppt:hover {
+  cursor: pointer;
+}
 section {
   margin-bottom: 50px;
 }

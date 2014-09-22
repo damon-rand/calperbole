@@ -25,7 +25,7 @@ $(document).ready(function(){
 
   app.Appt = Backbone.Model.extend({
     //Basic Model of the Appointment
-    appt_id: null, 
+    idAttribute: "appt_id", 
     title: null, 
     startDate: null,
     endDate: null
@@ -55,7 +55,8 @@ $(document).ready(function(){
     },
     events: {
       "click #addBtn":  "showModal",
-      "click #saveBtn":  "createAppt"
+      "click #saveBtn":  "createAppt",
+      "click .removeAppt":  "removeAppt"
     },
     showModal: function () {
       // Display the modal to Add a new event //
@@ -99,16 +100,36 @@ $(document).ready(function(){
       	$('#eventTitle').attr("placeholder", "Please enter a title").focus();
       }
     },
+    removeAppt: function (e) {
+    	var model_id = $(e.currentTarget).data('appt');
+    	//console.log(model_id);
+    	var listIndx = $(e.currentTarget).parent('li').index();
+    	var modelToRemove = this.appts.where({appt_id: model_id});
+    	this.appts.remove(modelToRemove);
+    	var storedEvents = localStorage.getObject(localStore);
+    	storedEvents = storedEvents.filter(function( obj ) {
+		  return obj.appt_id != model_id;
+		});
+		localStorage.setObject(localStore, storedEvents);
+		$('li.list-group-item').eq(listIndx).addClass("animated fadeOutLeft");
+    	$('li.list-group-item').eq(listIndx).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+			appview.reSortAppts();
+		});
+    },
     reSortAppts: function () {
       // Reorder all the the tasks so the oldest appear at the top //
       $("#taskList").html('');
       //console.log(storedEvents);
-	  storedEvents = localStorage.getObject(localStore);
+	  var storedEvents = localStorage.getObject(localStore);
+	  
+	  //console.log(storedEvents);
       if ((storedEvents) && (storedEvents.length > 0)) {
       	 storedEvents = sortEvents(storedEvents);
      	 for (var i = 0; i < storedEvents.length; i++) {	
      	 	this.appts.add(storedEvents[i]);
       	 }
+      } else {
+      	$("#taskList").append("<li class='list-group-item empty animated fadeInDown'><h4>You have nothing incredibly spectacular scheduled.</h4></li>");
       }
     },
     addAppt: function (model) {
@@ -121,7 +142,7 @@ $(document).ready(function(){
       } else {
       	start = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
       }
-      if (model.get('endDate')) {
+      if (!model.get('endDate')) {
       	end = moment(model.get('endDate')).format("dddd, MMMM Do YYYY, h:mm:ss a");
       }
       var title = hyperbolize(model.get('title'));
