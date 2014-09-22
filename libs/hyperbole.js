@@ -143,7 +143,7 @@ $(document).ready(function(){
       	start = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
       }
       if (!model.get('endDate')) {
-      	end = moment(model.get('endDate')).format("dddd, MMMM Do YYYY, h:mm:ss a");
+      	end = moment(model.get('startDate')).add(30, 'minutes').format("dddd, MMMM Do YYYY, h:mm:ss a");
       }
       var title = hyperbolize(model.get('title'));
       //Check if the created date is less than 15 minutes old or today or in the future 
