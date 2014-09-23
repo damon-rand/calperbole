@@ -76,8 +76,8 @@ $(document).ready(function(){
 			apptEnd = e.date;
 	  });
 	  
-	  $('#addForm').modal('show');
       if (model_id) {
+      	 $('.modal-title').html('Edit your event:');
      	 var model = this.appts.findWhere({appt_id: model_id});
      	 $('#eventID').val(model.get('appt_id'));
      	 if (model.get('title')) {
@@ -91,7 +91,10 @@ $(document).ready(function(){
 			 var end = moment(model.get('endDate')).format("MM/DD/YYYY, h:mm:ss a");
 			 $('#datetimeStop').data("DateTimePicker").setDate(end);
      	 }
+      } else {
+     	 $('.modal-title').html('Add your event:');
       }
+      $('#addForm').modal('show');
     },
     createAppt: function () {
       // Create the new Event //
