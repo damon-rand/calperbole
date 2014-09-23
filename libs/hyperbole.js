@@ -6,19 +6,19 @@ var localStore = "CALPerbole";
 
 // Array of Hyperboles //
 // The [title] string will be replaced with the users event titles //
-var hyperboles = ["I will absolutely die if I miss [title].", "Possibly the greatest [title] ever.", "OMG OMG OMG! [title]", "I wouldn't miss this [title] for the world.", "Insurmountably important [title]!", "The biggest [title] of all time.", "Don't miss [title] or you will regret it forever, possibly longer.", "Wow! I can't possibly imagine how amazing [title] will be!", "A pox on thee if thou miss thine [title].", "Incredibly astounding [title]!", "One thousand horses couldn't drag me from [title]!", "[title] will be cooler than a January in Montréal!", "[title] will be bigger than the biggest big thing!", "[title] will be hotter than July in Montréal!", "[title] will be staggeringly phenomenal.", "An extraordinarily extraordinary [title]!", "A wondrous spectacle of an unbelievable [title]!", "An elephant never forgets [title], so you shouldn't either."]
+var hyperboles = ["I will absolutely die if I miss [title].", "Possibly the greatest [title] ever.", "OMG OMG OMG! [title]", "I wouldn't miss this [title] for the world.", "Insurmountably important [title]!", "The biggest [title] of all time.", "Don't miss [title] or you will regret it forever, possibly longer.", "Wow! I can't possibly imagine how amazing [title] will be!", "A pox on thee if thou miss thine [title].", "Incredibly astounding [title]!", "One thousand horses couldn't drag me from [title]!", "[title] will be cooler than a January in Montréal!", "[title] will be bigger than the biggest big thing!", "[title] will be hotter than July in Montréal!", "[title] will be staggeringly phenomenal.", "An extraordinarily extraordinary [title]!", "A wondrous spectacle of an unbelievable [title]!", "An elephant never forgets [title], so you shouldn't either."];
 
 $(document).ready(function(){
   
   // extend Storage for JSON objects //
   Storage.prototype.setObject = function(key, value) {
 	this.setItem(key, JSON.stringify(value));
-  }
+  };
 
   Storage.prototype.getObject = function(key) {
 	var value = this.getItem(key);
 	return value && JSON.parse(value);
-  }
+  };
   
   // namespace the app //
   var app = {};
@@ -61,7 +61,7 @@ $(document).ready(function(){
     showModal: function () {
       // Display the modal to Add a new event //
       $('#addForm').modal('show');
-      $("#addEvent")[0].reset()
+      $("#addEvent")[0].reset();
       $('#datetimeStart').datetimepicker();
       $('#datetimeStop').datetimepicker();
 	  $("#datetimeStart").on("dp.change",function (e) {
@@ -160,7 +160,7 @@ $(document).ready(function(){
     }
   });
   
-  var appview = new app.AppView;
+  var appview = new app.AppView();
 
 });
 
