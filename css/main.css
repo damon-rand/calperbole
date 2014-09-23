@@ -91,6 +91,7 @@ li.empty h4 {
 }
 li:hover {
   background: rgba(197, 197, 197, 0.9);
+  cursor: pointer;
 }
 li:hover span.badge {
   background: rgba(146, 146, 146, 0.9);

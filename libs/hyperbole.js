@@ -55,27 +55,62 @@ $(document).ready(function(){
     },
     events: {
       "click #addBtn":  "showModal",
+      "click li":  "showModal",
       "click #saveBtn":  "createAppt",
       "click .removeAppt":  "removeAppt"
     },
-    showModal: function () {
+    showModal: function (e) {
       // Display the modal to Add a new event //
-      $('#addForm').modal('show');
+      var model_id = $(e.currentTarget).find('.removeAppt').data('appt');
       $("#addEvent")[0].reset();
-      $('#datetimeStart').datetimepicker();
-      $('#datetimeStop').datetimepicker();
+      //console.log(model_id);
+	  $('#datetimeStart').datetimepicker();
+	  $('#datetimeStop').datetimepicker();
 	  $("#datetimeStart").on("dp.change",function (e) {
-	    $('#datetimeStop').data("DateTimePicker").setMinDate(e.date);
-	    apptStart = e.date || moment();
+		$('#datetimeStop').data("DateTimePicker").setMinDate(e.date);
+			apptStart = e.date || moment();
+			$('#datetimeStop').data("DateTimePicker").setDate(moment(apptStart).add(30, 'minutes'));
 	  });
 	  $("#datetimeStop").on("dp.change",function (e) {
-	    $('#datetimeStart').data("DateTimePicker").setMaxDate(e.date);
-	    apptEnd = e.date || "";
+		$('#datetimeStart').data("DateTimePicker").setMaxDate(e.date);
+			apptEnd = e.date;
 	  });
+	  
+	  $('#addForm').modal('show');
+      if (model_id) {
+     	 var model = this.appts.findWhere({appt_id: model_id});
+     	 $('#eventID').val(model.get('appt_id'));
+     	 if (model.get('title')) {
+     	 	$('#eventTitle').val(model.get('title'));
+     	 }
+     	 if (model.get('startDate')) {
+     	 	 var start = moment(model.get('startDate')).format("MM/DD/YYYY, h:mm:ss a");
+  			 $('#datetimeStart').data("DateTimePicker").setDate(start);
+     	 }
+      	 if (model.get('endDate')) {
+			 var end = moment(model.get('endDate')).format("MM/DD/YYYY, h:mm:ss a");
+			 $('#datetimeStop').data("DateTimePicker").setDate(end);
+     	 }
+      }
     },
     createAppt: function () {
       // Create the new Event //
-      if ($('#eventTitle').val()) {
+      var model_id = $('#eventID').val();
+      if (model_id) {
+      	var model = this.appts.findWhere({appt_id: model_id});
+		model.set('title', $('#eventTitle').val());
+		model.set('startDate', $('#datetimeStart').data("DateTimePicker").getDate());
+		model.set('endDate', $('#datetimeStop').data("DateTimePicker").getDate())
+		//model.save();
+		var storedEvents = localStorage.getObject(localStore);
+    	storedEvents = storedEvents.filter(function( obj ) {
+		  return obj.appt_id != model_id;
+		});
+		storedEvents.push(model);
+		localStorage.setObject(localStore, storedEvents);
+		appview.reSortAppts();
+		$('#addForm').modal('hide');
+      } else if ($('#eventTitle').val()) {
 		  var apptTitle = $('#eventTitle').val();
 		  var apptID = makeid(12);
 		  var apptModel = new app.Appt({ title: apptTitle, startDate: apptStart, endDate: apptEnd, appt_id: apptID });
@@ -101,10 +136,11 @@ $(document).ready(function(){
       }
     },
     removeAppt: function (e) {
+   		e.stopPropagation();
     	var model_id = $(e.currentTarget).data('appt');
     	//console.log(model_id);
     	var listIndx = $(e.currentTarget).parent('li').index();
-    	var modelToRemove = this.appts.where({appt_id: model_id});
+    	var modelToRemove = this.appts.findWhere({appt_id: model_id});
     	this.appts.remove(modelToRemove);
     	var storedEvents = localStorage.getObject(localStore);
     	storedEvents = storedEvents.filter(function( obj ) {
